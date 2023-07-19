@@ -14,9 +14,12 @@ driver::driver(int32_t argc, char **argv)
     // Read parameters.
     driver::p_connection_settle_time = driver::m_node->param<int32_t>("connection_settle_time", 300);
     driver::p_timeout = driver::m_node->param<int32_t>("timeout", 300);
-    std::string p_port = driver::m_node->param<std::string>("serial_port", "/dev/ttyAMA0");
+    std::string p_port = driver::m_node->param<std::string>("serial_port", "/dev/ttyACM0");
     uint32_t p_baud = driver::m_node->param<int32_t>("baud_rate", 38400);
-    uint32_t p_update_rate = driver::m_node->param<int32_t>("update_rate", 100);
+        // needed to modify this parameter from 100 to 1000 
+        // update rate was originally too fast
+        // fixed this error: unable to configure NMEA update rate
+    uint32_t p_update_rate = driver::m_node->param<int32_t>("update_rate", 1000);
     driver::p_frame_id = driver::m_node->param<std::string>("frame_id", "mt3339");
     driver::p_uere = driver::m_node->param<double>("uere", 6.74);
 
